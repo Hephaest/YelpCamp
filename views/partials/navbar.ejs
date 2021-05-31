@@ -1,0 +1,27 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <img class="img-fit me-2" src="/images/logo.png" />
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link" href="/campgrounds">Campgrounds</a>
+            </div>
+            <div class="navbar-nav">
+                <% if(!currentUser) {%>
+                <a class="nav-link" href="/login">
+                    Sign In <span class="iconify" data-icon="ri:login-circle-line" data-inline="false" data-width="26" data-height="26"></span>
+                </a>
+                <% } else {%>
+                <a class="nav-link rounded-pill bg-white text-dark my-auto mx-3 px-2 small fw-bold" href="/campgrounds/new">Create Campground</a>
+                <a class="nav-link" href="/logout">
+                    Logout <span class="iconify" data-icon="ri:logout-circle-line" data-inline="false" data-width="26" data-height="26"></span>
+                </a>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</nav>

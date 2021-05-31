@@ -1,0 +1,65 @@
+<% layout('layouts/boilerplate') %>
+<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/css/stars.css">
+<link rel="stylesheet" href="/css/map.css">
+
+<div id='map' class="d-cluster-map mb-3"></div>
+
+<div class="header d-flex align-items-center justify-content-between">
+    <h1 class="d-inline-block">All Campgrounds</h1>
+    <div class="dropdown d-inline-block">
+        <button class="btn sort-color dropdown-toggle" type="button" id="btn-sort" data-bs-toggle="dropdown" aria-expanded="false">
+          Sort by
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="btn-sort">
+          <li><a class="dropdown-item" href="/campgrounds/?page=<%= currentPage %>&sort=alpha">Alphabet</a></li>
+          <li><a class="dropdown-item" href="/campgrounds/?page=<%= currentPage %>&sort=rating">Rating</a></li>
+          <li><a class="dropdown-item" href="/campgrounds/?page=<%= currentPage %>&sort=reviews">Most Reviews</a></li>
+        </ul>
+      </div>
+</div>
+
+
+<% for (let campground of campgrounds) { %>
+    <div class="card mb-3">
+        <div class="row">
+            <div class="col-md-4">
+                <% if (campground.images.length) { %>
+                <img src="<%= campground.images[0].medium %>" alt="" class="mx-auto img-cover">
+                <% } else { %>
+                <img src="/images/empty.jpeg" alt="" class="mx-auto img-cover">
+                <% } %>
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title"><%= campground.title %></h5>
+                    <p class="card-text truncate-text"><%= campground.description %></p>
+                    <p class="card-text"><small class="text-muted"><%= campground.location %></small></p>
+                    <div class="rating">
+                        <div class="card-text starability-result small-size d-inline-block" data-rating="<%= campground.rating %>"></div>
+                        <div class="starability-text d-inline-block text-muted"></div>
+                    </div>
+                    <div><a class="btn btn-primary mb-3 float-end view-detail" href="/campgrounds/<%= campground._id %>">View <%= campground.title %> &raquo;</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+<% } %>
+
+<nav aria-label="Page navigation">
+    <ul id="pagination-container" class="pagination justify-content-center">
+    </ul>
+  </nav>
+
+<script>
+    const currentSort = '<%- currentSort %>';
+    const currentPage = <%- currentPage %>;
+    const pages = <%- pages %>;
+    const maxWindow = <%- maxWindow %>;
+    const mapToken = '<%- process.env.MAPBOX_API_TOKEN %>';
+    const campgrounds = <%- JSON.stringify(campgrounds) %>;
+    const mapData = { features: <%- JSON.stringify(campgrounds) %>  };
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pluralize/8.0.0/pluralize.min.js" integrity="sha512-4uLji4UnTkA9AWSkIT2+sTQyRqox+O/e+JVkJA7zf+11CJDTxNEaMq13LRvYsu8Mv0kfpnePOIoS0Z0f8VlGgw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.dotdotdot/4.1.0/dotdotdot.js" integrity="sha512-y3NiupaD6wK/lVGW0sAoDJ0IR2f3+BWegGT20zcCVB+uPbJOsNO2PVi09pCXEiAj4rMZlEJpCGu6oDz0PvXxeg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/js/renderIndexPage.js"></script>
