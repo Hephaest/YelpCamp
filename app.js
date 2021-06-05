@@ -119,7 +119,16 @@ const fontSrcUrls = [];
 app.use(
     helmet.contentSecurityPolicy({
       directives: {
-        defaultSrc: [],
+        defaultSrc: [
+          '\'self\'',
+          'blob:',
+          'https://amazingcampgrounds.herokuapp.com/',
+        ],
+        childSrc: [
+          '\'self\'',
+          'blob:',
+          'https://amazingcampgrounds.herokuapp.com/campgrounds/',
+        ],
         connectSrc: ['\'self\'', ...connectSrcUrls],
         scriptSrc: ['\'unsafe-inline\'', '\'self\'', ...scriptSrcUrls],
         styleSrc: ['\'self\'', '\'unsafe-inline\'', ...styleSrcUrls],
