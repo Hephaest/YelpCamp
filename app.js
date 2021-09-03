@@ -30,11 +30,8 @@ const sessionSecret = process.env.SESSION_SECRET || 'flai3heal!GNES!jang';
 
 const INTERVAL = 7 * 24 * 60 * 60 * 1000;
 
-mongoose.connect(dbUrl, {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
+mongoose.connect(dbUrl, async (error) => {
+  if (error) throw error;
 });
 
 const db = mongoose.connection;
